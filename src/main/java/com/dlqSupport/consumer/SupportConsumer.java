@@ -7,17 +7,18 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
+
 @Component
 public class SupportConsumer {
 
     @Autowired
     private SupportService supportService;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @RabbitListener(queues = { "dead-letter-queue" })
-    public void receberMensagem(@Payload String message) {
+    public void receberMensagem(@Payload String message) throws IOException {
         System.out.println(message);
+        supportService.invocarEditor(message);
     }
 
 }
