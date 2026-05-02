@@ -1,2 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editor JSON</title>
+    <style>
+        #titulo {
+            color: aliceblue;
+        }
+        #elemento {
+            align-items: center;
+            padding-left: 200px;
+        }
+    </style>
+    <script>
+        function teste() {
+            const text = document.getElementById("texto").value;
+            try {
+                 JSON.parse(text)
+                 alert("json válido")
+            } catch(e) {
+                alert("json inválido")
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1 id="titulo">testando escrita</h1>
+    <p>paragrafo</p>
+    <button onclick="teste()">
+        btn
+    </button>
+    <div>
+        <textarea id="texto" rows="10" cols="100"></textarea>
+    </div>
+</body>
