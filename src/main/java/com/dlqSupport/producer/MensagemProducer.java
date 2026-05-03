@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
 
 @Component
-public class SupportProducer {
+public class MensagemProducer {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    public void resendJson(String json) {
+    public void reenviarJson(String json) {
         amqpTemplate.convertAndSend(
                 "pedido-exchange",
                 "pedido-key.pago",

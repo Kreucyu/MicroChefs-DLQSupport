@@ -1,22 +1,21 @@
 package com.dlqSupport.service;
 
-import com.dlqSupport.producer.SupportProducer;
+import com.dlqSupport.producer.MensagemProducer;
+import com.dlqSupport.repository.SupportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 
 @Service
 public class SupportService {
     @Autowired
-    private SupportProducer supportProducer;
+    private MensagemProducer supportProducer;
 
-    public void validarJson(String json) {
-        System.out.println(json);
-        supportProducer.resendJson(json);
-    }
+    @Autowired
+    private SupportRepository supportRepository;
 
-    public void invocarEditor(String json) throws IOException {
+    public void salvarMensagem(String) {
+
     }
 }

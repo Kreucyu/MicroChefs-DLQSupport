@@ -6,5 +6,16 @@ spring:
     port: 5672
     addresses: amqps://voowobdz:oPXu8xSnc3nXS_GlD6QR2wg9nz1afCdY@jackal.rmq.cloudamqp.com/voowobdz
 
+  datasource:
+    url: jdbc:postgresql://localhost:5434/mensagens
+    username: docker
+    password: docker
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-update
+    show-sql: true
+
 server:
   port: 9091
