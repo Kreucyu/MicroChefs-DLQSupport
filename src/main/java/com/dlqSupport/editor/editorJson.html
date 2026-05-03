@@ -4,36 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Editor JSON</title>
-    <style>
-        #titulo {
-            color: aliceblue;
-        }
-        #elemento {
-            align-items: center;
-            padding-left: 200px;
-        }
-    </style>
-    <script>
-        function teste() {
-            const text = document.getElementById("texto").value;
-            try {
-                 JSON.parse(text)
-                 console.log("JSON válido")
-            } catch(e) {
-                console.log(text)
-            }
-        }
-    </script>
+    <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css">
 </head>
-
-<body>
-    <h1 id="titulo">testando escrita</h1>
-    <p>paragrafo</p>
-    <button onclick="teste()">
-        btn
-    </button>
+<body style="background-color: black;">
     <div>
-        <textarea id="texto" rows="10" cols="100"></textarea>
+        <h1 style="color: white; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+            Editor JSON
+        </h1>
     </div>
+    <div id="editorJSON" style="height: 400px; border: 1px solid black;"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+    <script>
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs'}})
+        require(["vs/editor/editor.main"], () => {
+            monaco.editor.create(document.getElementById('editorJSON'), {
+                value: `{
+                "id": 1,
+                "quantidadeProduto": 2,
+                "formaDePagamento": "DINHEIRO"
+                }`,
+                language: 'json',
+                theme: 'vs-dark',
+            })
+        })
+    </script>
 
 </body>
+
