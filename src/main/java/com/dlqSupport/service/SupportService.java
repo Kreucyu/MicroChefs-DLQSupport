@@ -15,7 +15,7 @@ public class SupportService {
     @Autowired
     private SupportRepository supportRepository;
 
-    public void salvarMensagem(String) {
+    public void salvarMensagem(String json) {
 
     }
 }
