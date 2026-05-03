@@ -1,20 +1,36 @@
 package com.dlqSupport.controller;
 
+import com.dlqSupport.dto.FixedMensagemDto;
+import com.dlqSupport.exception.MensagemNotFoundException;
 import com.dlqSupport.service.SupportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/archive")
+@RestController("/mensagem")
 public class MensagemController {
 
     @Autowired
     private SupportService supportService;
 
-    @PostMapping
-    public ResponseEntity<String> receberJson(String json) {
-        supportService.validarJson(json);
-        return ResponseEntity.ok("Recebido com sucesso!");
+    @PatchMapping("/reenviar")
+    public ResponseEntity<String> reenviarMensagem(FixedMensagemDto fixedMensagemDto) {
+        try {
+            supportService.atualizarMensagem(fixedMensagemDto);
+            return ResponseEntity.ok("Recebido com sucesso!");
+        } catch (MensagemNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + ", log: "+ e);
+        }
+
+    }
+
+    @GetMapping("/obter/{id}")
+    public ResponseEntity<String> buscarMensagem(@PathVariable Long id) {
+        try{
+            return ResponseEntity.ok(supportService.getMensagemById(id).mensagemOriginal());
+        } catch (MensagemNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + ", log: "+ e);
+        }
     }
 }

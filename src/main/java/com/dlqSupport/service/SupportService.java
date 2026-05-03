@@ -1,4 +1,5 @@
 package com.dlqSupport.service;
+import com.dlqSupport.dto.FixedMensagemDto;
 import com.dlqSupport.dto.RecoveryMensagemDto;
 import com.dlqSupport.entities.Mensagem;
 import com.dlqSupport.exception.MensagemNotFoundException;
@@ -31,9 +32,7 @@ public class SupportService {
 
     public RecoveryMensagemDto getMensagemById(Long id) {
         Mensagem mensagemDesejada = supportRepository.findById(id).orElse(null);
-        if(mensagemDesejada == null) {
-            throw new MensagemNotFoundException("Não foi encontrada mensagem com id" + id);
-        }
+        if(mensagemDesejada == null) throw new MensagemNotFoundException("Não foi encontrada mensagem com id" + id);
         return new RecoveryMensagemDto(id, mensagemDesejada.getMensagemOriginal());
     }
 
@@ -43,6 +42,15 @@ public class SupportService {
 
     private void iniciarEditor(Long id) {
 
+    }
+
+    public void atualizarMensagem(FixedMensagemDto fixedMensagemDto) {
+        Mensagem mensagemAtualizada = supportRepository.findById(fixedMensagemDto.id()).orElse(null);
+
+        if(mensagemAtualizada == null) throw new MensagemNotFoundException("Não foi possível encontrar a mensagem");
+
+        mensagemAtualizada.setCorrecaoDocumentada(fixedMensagemDto.correcaoDocumentada());
+        mensagemAtualizada.setMensagemCorrigida(fixedMensagemDto.mensagemCorrigida());
     }
 
 
