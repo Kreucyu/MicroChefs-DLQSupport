@@ -44,17 +44,15 @@ public class SupportService {
     }
 
     public void atualizarMensagem(FixedMessageDTO fixedMensagemDto) {
-        Mensagem mensagemAtualizada = supportRepository.findById(fixedMensagemDto.id()).orElse(null);
-        if(mensagemAtualizada == null) throw new MensagemNotFoundException("Não foi possível encontrar a mensagem");
+        Mensagem mensagemAtualizada = supportRepository.findById(fixedMensagemDto.id()).orElseThrow(() -> new MensagemNotFoundException("Não foi possível encontrar a mensagem"));
         mensagemAtualizada.setCorrecaoDocumentada(fixedMensagemDto.correcaoDocumentada());
         mensagemAtualizada.setMensagemCorrigida(fixedMensagemDto.mensagemCorrigida());
     }
 
 
     public FindMessageDTO getMensagemById(Long id) {
-        Mensagem mensagemDesejada = supportRepository.findById(id).orElse(null);
-        if(mensagemDesejada == null) throw new MensagemNotFoundException("Não foi encontrada mensagem com id" + id);
-        return new FindMessageDTO(mensagemDesejada.getId(), mensagemDesejada.getMensagemOriginal());
+        Mensagem mensagemDesejada = supportRepository.findById(id).orElseThrow(() -> new MensagemNotFoundException("Não foi encontrada mensagem com id" + id));
+        return new FindMessageDTO(mensagemDesejada.getMensagemOriginal(), mensagemDesejada.getTipoMensagem(), mensagemDesejada.getMensagemDeErro(), mensagemDesejada.getFilaDeOrigem());
     }
 
     public Long getIdByMensagem(String mensagem) {

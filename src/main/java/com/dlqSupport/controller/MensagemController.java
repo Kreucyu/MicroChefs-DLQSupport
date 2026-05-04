@@ -1,6 +1,7 @@
 package com.dlqSupport.controller;
 
 import com.dlqSupport.dto.DLQSupportDTO;
+import com.dlqSupport.dto.FindMessageDTO;
 import com.dlqSupport.dto.FixedMessageDTO;
 import com.dlqSupport.dto.RecoveryMessageDTO;
 import com.dlqSupport.exception.MensagemNotFoundException;
@@ -35,9 +36,9 @@ public class MensagemController {
     }
 
     @GetMapping("/obter/{id}")
-    public ResponseEntity<String> buscarMensagem(@PathVariable Long id) {
+    public ResponseEntity<FindMessageDTO> buscarMensagem(@PathVariable Long id) {
         try{
-            return ResponseEntity.ok(supportService.getMensagemById(id).mensagemOriginal());
+            return ResponseEntity.ok(supportService.getMensagemById(id));
         } catch (MensagemNotFoundException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + ", log: "+ e);
         }
