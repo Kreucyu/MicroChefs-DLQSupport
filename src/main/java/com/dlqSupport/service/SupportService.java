@@ -7,8 +7,9 @@ import com.dlqSupport.producer.MensagemProducer;
 import com.dlqSupport.repository.SupportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
-import java.util.Optional;
+import java.sql.SQLOutput;
 
 
 @Service
@@ -30,15 +31,13 @@ public class SupportService {
         supportRepository.save(novaMensagem);
     }
 
-    private void iniciarEditor(Long id) {
-
+    public void iniciarEditor(Long id) {
+        System.out.println("\nACESSO AO EDITOR JSON: http://localhost:9091/mensagem/editor/" + id);
     }
 
     public void atualizarMensagem(FixedMensagemDto fixedMensagemDto) {
         Mensagem mensagemAtualizada = supportRepository.findById(fixedMensagemDto.id()).orElse(null);
-
         if(mensagemAtualizada == null) throw new MensagemNotFoundException("Não foi possível encontrar a mensagem");
-
         mensagemAtualizada.setCorrecaoDocumentada(fixedMensagemDto.correcaoDocumentada());
         mensagemAtualizada.setMensagemCorrigida(fixedMensagemDto.mensagemCorrigida());
     }

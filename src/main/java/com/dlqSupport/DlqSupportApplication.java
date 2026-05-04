@@ -9,8 +9,10 @@ import java.io.IOException;
 @SpringBootApplication
 public class DlqSupportApplication {
 
-	public static void main(String[] args) throws IOException {
+	static void main(String[] args) throws IOException {
 		SpringApplication.run(DlqSupportApplication.class, args);
+		SupportService supportService = new SupportService();
+		supportService.iniciarEditor(1L);
 	}
 
 }

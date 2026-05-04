@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-@RestController("/mensagem")
+@RestController
+@RequestMapping("/mensagem")
 public class MensagemController {
 
     @Autowired
@@ -31,5 +33,10 @@ public class MensagemController {
         } catch (MensagemNotFoundException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + ", log: "+ e);
         }
+    }
+
+    @GetMapping("/editor/{id}")
+    public ModelAndView editorJson() {
+        return new ModelAndView("index");
     }
 }
