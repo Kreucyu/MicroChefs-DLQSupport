@@ -41,7 +41,7 @@ public class MensagemController {
             return ResponseEntity.ok(supportService.getMensagemById(id));
         } catch (MensagemNotFoundException e) {
             System.out.println("necessário inserir exceção aqui");
-            return ResponseEntity.ok(new FindMessageDTO(".", ".", ".", "."));
+            return ResponseEntity.ok(new FindMessageDTO("", ".", ".", "."));
         }
     }
 

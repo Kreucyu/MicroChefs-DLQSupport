@@ -31,6 +31,7 @@ public class SupportService {
 
     private void salvarMensagem(DLQSupportDTO dlqSupportDTO) {
         Mensagem novaMensagem = new Mensagem();
+        novaMensagem.setTipoMensagem(dlqSupportDTO.tipoMensagem());
         novaMensagem.setMensagemOriginal(dlqSupportDTO.mensagemOriginal());
         novaMensagem.setMensagemDeErro(dlqSupportDTO.mensagemDeErro());
         novaMensagem.setTipoErro(dlqSupportDTO.tipoErro());
