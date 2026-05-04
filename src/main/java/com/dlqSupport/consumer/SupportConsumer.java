@@ -17,7 +17,7 @@ public class SupportConsumer {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @RabbitListener(queues = { "dead-letter-queue" })
+    @RabbitListener(queues = "dead-letter-queue", ackMode = "MANUAL")
     public void receberMensagem(@Payload String mensagem) {
         DLQSupportDTO dlqSupportDTO = objectMapper.readValue(mensagem, DLQSupportDTO.class);
         supportService.processarMensagem(dlqSupportDTO);
