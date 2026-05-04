@@ -15,7 +15,7 @@ public class SupportConsumer {
     private SupportService supportService;
 
     @RabbitListener(queues = { "dead-letter-queue" })
-    public void receberMensagem(@Payload String mensagem) throws IOException {
+    public void receberMensagem(@Payload String mensagem) {
         supportService.processarMensagem(mensagem);
     }
 

@@ -13,9 +13,9 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jpa:
-    hibernate:
-      ddl-auto: create-update
     show-sql: true
+    hibernate:
+      ddl-auto: update
 
 server:
   port: 9091

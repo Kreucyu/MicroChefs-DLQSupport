@@ -19,25 +19,15 @@ public class SupportService {
     @Autowired
     private SupportRepository supportRepository;
 
-    private void salvarMensagem(String mensagem) {
-        Mensagem novaMensagem = new Mensagem();
-        novaMensagem.setMensagemOriginal(mensagem);
-        supportRepository.save(novaMensagem);
-    }
-
     public void processarMensagem(String mensagem) {
         salvarMensagem(mensagem);
         iniciarEditor(getIdByMensagem(mensagem));
     }
 
-    public RecoveryMensagemDto getMensagemById(Long id) {
-        Mensagem mensagemDesejada = supportRepository.findById(id).orElse(null);
-        if(mensagemDesejada == null) throw new MensagemNotFoundException("Não foi encontrada mensagem com id" + id);
-        return new RecoveryMensagemDto(id, mensagemDesejada.getMensagemOriginal());
-    }
-
-    public Long getIdByMensagem(String mensagem) {
-        return supportRepository.findByMensagemOriginal(mensagem).getId();
+    private void salvarMensagem(String mensagem) {
+        Mensagem novaMensagem = new Mensagem();
+        novaMensagem.setMensagemOriginal(mensagem);
+        supportRepository.save(novaMensagem);
     }
 
     private void iniciarEditor(Long id) {
@@ -51,6 +41,17 @@ public class SupportService {
 
         mensagemAtualizada.setCorrecaoDocumentada(fixedMensagemDto.correcaoDocumentada());
         mensagemAtualizada.setMensagemCorrigida(fixedMensagemDto.mensagemCorrigida());
+    }
+
+
+    public RecoveryMensagemDto getMensagemById(Long id) {
+        Mensagem mensagemDesejada = supportRepository.findById(id).orElse(null);
+        if(mensagemDesejada == null) throw new MensagemNotFoundException("Não foi encontrada mensagem com id" + id);
+        return new RecoveryMensagemDto(id, mensagemDesejada.getMensagemOriginal());
+    }
+
+    public Long getIdByMensagem(String mensagem) {
+        return supportRepository.findByMensagemOriginal(mensagem).getId();
     }
 
 
