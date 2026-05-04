@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class MensagemController {
             return ResponseEntity.ok(supportService.getMensagemById(id));
         } catch (MensagemNotFoundException e) {
             System.out.println("necessário inserir exceção aqui");
-            return ResponseEntity.ok(new FindMessageDTO("", ".", ".", ".", new EstruturaMensagem(Map.of("", new CamposExigidos("", false, null, null)))));
+            return ResponseEntity.ok(new FindMessageDTO("", ".", ".", ".", LocalDateTime.now(), new EstruturaMensagem(Map.of("", new CamposExigidos("", false, null, null)))));
         }
     }
 

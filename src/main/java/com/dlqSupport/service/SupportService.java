@@ -55,11 +55,13 @@ public class SupportService {
     public FindMessageDTO getMensagemById(Long id) {
         Mensagem mensagemDesejada = supportRepository.findById(id).orElseThrow(() -> new MensagemNotFoundException("Não foi encontrada mensagem com id" + id));
         RegistroEstruturas registroEstruturas = new RegistroEstruturas();
+        System.out.println(mensagemDesejada);
         return new FindMessageDTO(
                 mensagemDesejada.getMensagemOriginal(),
                 mensagemDesejada.getTipoMensagem(),
                 mensagemDesejada.getMensagemDeErro(),
                 mensagemDesejada.getFilaDeOrigem(),
+                mensagemDesejada.getTimestamp(),
                 registroEstruturas.buscarRegistro(
                         mensagemDesejada.getTipoMensagem()));
     }
