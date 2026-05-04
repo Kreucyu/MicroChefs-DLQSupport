@@ -1,5 +1,6 @@
 package com.dlqSupport.dto;
 
+import com.dlqSupport.entities.EstruturaMensagem;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;

@@ -4,6 +4,8 @@ import com.dlqSupport.dto.DLQSupportDTO;
 import com.dlqSupport.dto.FindMessageDTO;
 import com.dlqSupport.dto.FixedMessageDTO;
 import com.dlqSupport.dto.RecoveryMessageDTO;
+import com.dlqSupport.entities.CamposExigidos;
+import com.dlqSupport.entities.EstruturaMensagem;
 import com.dlqSupport.exception.MensagemNotFoundException;
 import com.dlqSupport.service.SupportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/mensagem")
@@ -41,7 +44,7 @@ public class MensagemController {
             return ResponseEntity.ok(supportService.getMensagemById(id));
         } catch (MensagemNotFoundException e) {
             System.out.println("necessário inserir exceção aqui");
-            return ResponseEntity.ok(new FindMessageDTO("", ".", ".", "."));
+            return ResponseEntity.ok(new FindMessageDTO("", ".", ".", ".", new EstruturaMensagem(Map.of("", new CamposExigidos("", false, null, null)))));
         }
     }
 

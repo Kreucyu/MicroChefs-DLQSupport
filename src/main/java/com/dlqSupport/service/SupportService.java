@@ -4,6 +4,7 @@ import com.dlqSupport.dto.FindMessageDTO;
 import com.dlqSupport.dto.FixedMessageDTO;
 import com.dlqSupport.dto.RecoveryMessageDTO;
 import com.dlqSupport.entities.Mensagem;
+import com.dlqSupport.entities.RegistroEstruturas;
 import com.dlqSupport.exception.MensagemNotFoundException;
 import com.dlqSupport.producer.MensagemProducer;
 import com.dlqSupport.repository.SupportRepository;
@@ -53,7 +54,14 @@ public class SupportService {
 
     public FindMessageDTO getMensagemById(Long id) {
         Mensagem mensagemDesejada = supportRepository.findById(id).orElseThrow(() -> new MensagemNotFoundException("Não foi encontrada mensagem com id" + id));
-        return new FindMessageDTO(mensagemDesejada.getMensagemOriginal(), mensagemDesejada.getTipoMensagem(), mensagemDesejada.getMensagemDeErro(), mensagemDesejada.getFilaDeOrigem());
+        RegistroEstruturas registroEstruturas = new RegistroEstruturas();
+        return new FindMessageDTO(
+                mensagemDesejada.getMensagemOriginal(),
+                mensagemDesejada.getTipoMensagem(),
+                mensagemDesejada.getMensagemDeErro(),
+                mensagemDesejada.getFilaDeOrigem(),
+                registroEstruturas.buscarRegistro(
+                        mensagemDesejada.getTipoMensagem()));
     }
 
     public Long getIdByMensagem(String mensagem) {
