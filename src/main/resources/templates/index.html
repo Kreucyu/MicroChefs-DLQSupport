@@ -50,7 +50,7 @@
                 console.log(response)
                 console.log(result)
             } catch(error) {
-                alert(error.message)
+                console.error('Erro ao buscar JSON:', error)
             }
         }
 
@@ -66,12 +66,13 @@
         })
 
         function validarJSON() {
+            /*
             try {
                 JSON.parse(editor.getValue())
                 document.getElementById('textLocal').innerHTML = "<h1 style=\"color: white\">JSON válido</h1>"
             } catch(error) {
                 document.getElementById('textLocal').innerHTML = "<h1 style=\"color: white\">JSON inválido</h1>"
-            }
+            */
         }
 
     </script>
