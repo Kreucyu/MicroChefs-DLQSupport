@@ -7,10 +7,6 @@ import com.dlqSupport.producer.MensagemProducer;
 import com.dlqSupport.repository.SupportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
-
-import java.sql.SQLOutput;
-
 
 @Service
 public class SupportService {
@@ -52,8 +48,4 @@ public class SupportService {
     public Long getIdByMensagem(String mensagem) {
         return supportRepository.findByMensagemOriginal(mensagem).getId();
     }
-
-
-
-
 }

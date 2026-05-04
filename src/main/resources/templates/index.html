@@ -26,6 +26,23 @@
     
     
     <script>
+        window.onload = capturarIdUrl();
+
+        function capturarIdUrl() {
+            var URL = window.location.href
+            var separadorDeUrl = URL.split("editor/")
+            if(separadorDeUrl[1] == null) {
+                alert("Não foi possível localizar um id de mensagem")
+            }
+            var id = separadorDeUrl[1]
+            buscarJSON(id)
+        }
+
+        function bucsarJSON(id) {
+            
+        }
+
+    
         var editor
         require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs'}})
         require(["vs/editor/editor.main"], () => {

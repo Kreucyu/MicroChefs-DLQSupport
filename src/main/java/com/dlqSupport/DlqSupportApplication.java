@@ -11,8 +11,6 @@ public class DlqSupportApplication {
 
 	static void main(String[] args) throws IOException {
 		SpringApplication.run(DlqSupportApplication.class, args);
-		SupportService supportService = new SupportService();
-		supportService.iniciarEditor(1L);
 	}
 
 }
