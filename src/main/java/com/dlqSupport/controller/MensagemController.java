@@ -1,5 +1,6 @@
 package com.dlqSupport.controller;
 
+import com.dlqSupport.dto.FakeMensagemDto;
 import com.dlqSupport.dto.FixedMensagemDto;
 import com.dlqSupport.exception.MensagemNotFoundException;
 import com.dlqSupport.service.SupportService;
@@ -16,8 +17,12 @@ public class MensagemController {
     @Autowired
     private SupportService supportService;
 
+    public MensagemController(SupportService supportService) {
+        this.supportService = supportService;
+    }
+
     @PatchMapping("/reenviar")
-    public ResponseEntity<String> reenviarMensagem(FixedMensagemDto fixedMensagemDto) {
+    public ResponseEntity<String> reenviarMensagem(@RequestBody FixedMensagemDto fixedMensagemDto) {
         try {
             supportService.atualizarMensagem(fixedMensagemDto);
             return ResponseEntity.ok("Recebido com sucesso!");
@@ -38,5 +43,11 @@ public class MensagemController {
     @GetMapping("/editor/{id}")
     public ModelAndView editorJson() {
         return new ModelAndView("index");
+    }
+
+    @PostMapping("/fake")
+    public ResponseEntity<String> fakeMessage(@RequestBody FakeMensagemDto fakeMensagemDto) {
+        supportService.processarMensagem(fakeMensagemDto.mensagemOriginal());
+        return ResponseEntity.ok("recebido");
     }
 }

@@ -29,7 +29,7 @@
         window.onload = capturarIdUrl();
 
         function capturarIdUrl() {
-            var URL = window.location.href
+            var URL = window.location.pathname
             var separadorDeUrl = URL.split("editor/")
             if(separadorDeUrl[1] == null) {
                 alert("Não foi possível localizar um id de mensagem")
@@ -38,8 +38,20 @@
             buscarJSON(id)
         }
 
-        function bucsarJSON(id) {
-            
+        async function buscarJSON(id) {
+            const URL = "http://localhost:9091/mensagem/obter/" + id
+            alert("o id e " + id)
+            try {
+                const response = await fetch(URL)
+                if(!response.ok) {
+                    throw new Error('Estado da resposta: ' + response.status)
+                }
+                const result = await response.json()
+                console.log(response)
+                console.log(result)
+            } catch(error) {
+                alert(error.message)
+            }
         }
 
     

@@ -1,8 +1,10 @@
 package com.dlqSupport;
 
+import com.dlqSupport.consumer.SupportConsumer;
 import com.dlqSupport.service.SupportService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.client.RestClient;
 
 import java.io.IOException;
 

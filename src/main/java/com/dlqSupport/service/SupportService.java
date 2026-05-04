@@ -16,6 +16,10 @@ public class SupportService {
     @Autowired
     private SupportRepository supportRepository;
 
+    public SupportService(SupportRepository supportRepository) {
+        this.supportRepository = supportRepository;
+    }
+
     public void processarMensagem(String mensagem) {
         salvarMensagem(mensagem);
         iniciarEditor(getIdByMensagem(mensagem));
@@ -24,6 +28,7 @@ public class SupportService {
     private void salvarMensagem(String mensagem) {
         Mensagem novaMensagem = new Mensagem();
         novaMensagem.setMensagemOriginal(mensagem);
+        System.out.println(novaMensagem);
         supportRepository.save(novaMensagem);
     }
 
