@@ -1,4 +1,6 @@
 package com.dlqSupport.service;
+import com.dlqSupport.dto.DLQSupportDTO;
+import com.dlqSupport.dto.FindMessageDTO;
 import com.dlqSupport.dto.FixedMessageDTO;
 import com.dlqSupport.dto.RecoveryMessageDTO;
 import com.dlqSupport.entities.Mensagem;
@@ -7,6 +9,8 @@ import com.dlqSupport.producer.MensagemProducer;
 import com.dlqSupport.repository.SupportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SupportService {
@@ -20,15 +24,18 @@ public class SupportService {
         this.supportRepository = supportRepository;
     }
 
-    public void processarMensagem(String mensagem) {
-        salvarMensagem(mensagem);
-        iniciarEditor(getIdByMensagem(mensagem));
+    public void processarMensagem(DLQSupportDTO dlqSupportDTO) {
+        salvarMensagem(dlqSupportDTO);
+        iniciarEditor(getIdByMensagem(dlqSupportDTO.mensagemOriginal()));
     }
 
-    private void salvarMensagem(String mensagem) {
+    private void salvarMensagem(DLQSupportDTO dlqSupportDTO) {
         Mensagem novaMensagem = new Mensagem();
-        novaMensagem.setMensagemOriginal(mensagem);
-        System.out.println(novaMensagem);
+        novaMensagem.setMensagemOriginal(dlqSupportDTO.mensagemOriginal());
+        novaMensagem.setMensagemDeErro(dlqSupportDTO.mensagemDeErro());
+        novaMensagem.setTipoErro(dlqSupportDTO.tipoErro());
+        novaMensagem.setTimestamp(dlqSupportDTO.timestamp());
+        novaMensagem.setFilaDeOrigem(dlqSupportDTO.filaDeOrigem());
         supportRepository.save(novaMensagem);
     }
 
@@ -44,13 +51,28 @@ public class SupportService {
     }
 
 
-    public RecoveryMessageDTO getMensagemById(Long id) {
+    public FindMessageDTO getMensagemById(Long id) {
         Mensagem mensagemDesejada = supportRepository.findById(id).orElse(null);
         if(mensagemDesejada == null) throw new MensagemNotFoundException("Não foi encontrada mensagem com id" + id);
-        return new RecoveryMessageDTO(id, mensagemDesejada.getMensagemOriginal());
+        return new FindMessageDTO(mensagemDesejada.getId(), mensagemDesejada.getMensagemOriginal());
     }
 
     public Long getIdByMensagem(String mensagem) {
         return supportRepository.findByMensagemOriginal(mensagem).getId();
+    }
+
+    public List<RecoveryMessageDTO> exibirMensagens() {
+        return supportRepository.findAll().stream().map(m ->
+                new RecoveryMessageDTO(
+                        m.getId(),
+                        m.getMensagemOriginal(),
+                        m.getTipoMensagem(),
+                        m.getFilaDeOrigem(), 
+                        m.getTipoErro(),
+                        m.getMensagemDeErro(),
+                        m.getMensagemCorrigida(),
+                        m.getCorrecaoDocumentada(),
+                        m.getTimestamp()))
+                .toList();
     }
 }
