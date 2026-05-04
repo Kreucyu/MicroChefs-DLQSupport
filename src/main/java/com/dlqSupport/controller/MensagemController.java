@@ -1,7 +1,6 @@
 package com.dlqSupport.controller;
 
-import com.dlqSupport.dto.FakeMensagemDto;
-import com.dlqSupport.dto.FixedMensagemDto;
+import com.dlqSupport.dto.FixedMessageDTO;
 import com.dlqSupport.exception.MensagemNotFoundException;
 import com.dlqSupport.service.SupportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class MensagemController {
     }
 
     @PatchMapping("/reenviar")
-    public ResponseEntity<String> reenviarMensagem(@RequestBody FixedMensagemDto fixedMensagemDto) {
+    public ResponseEntity<String> reenviarMensagem(@RequestBody FixedMessageDTO fixedMensagemDto) {
         try {
             supportService.atualizarMensagem(fixedMensagemDto);
             return ResponseEntity.ok("Recebido com sucesso!");

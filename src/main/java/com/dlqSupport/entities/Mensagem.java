@@ -1,7 +1,10 @@
 package com.dlqSupport.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -16,11 +19,28 @@ public class Mensagem {
     private Long id;
 
     @Column(nullable = false)
+    private String tipoMensagem;
+
+    @Column(nullable = false)
+    private String filaDeOrigem;
+
+    @Column(nullable = false)
+    private String tipoErro;
+
+    @Column(nullable = false)
+    private String mensagemDeErro;
+
+    @Column(nullable = false)
     private String mensagemOriginal;
+
+    @Column(nullable = false)
+    private LocalDateTime timestamp;
 
     @Column
     private String mensagemCorrigida;
 
     @Column
     private String correcaoDocumentada;
+
+
 }
