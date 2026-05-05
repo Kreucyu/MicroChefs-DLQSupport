@@ -12,17 +12,36 @@
              background-color: #1e1e1e !important;
              border: 1px solid black !important;
              margin-top: 15px;
+             color: #a1a1a1;
+            
         }
         .btn-secondary:hover{
              background-color: #353535 !important;
              border: 1px solid black !important;
              margin-top: 15px;
+             
+        }
+        .card {
+            border: 1px solid black;
+            background-color: #1e1e1e;
+            color: #a1a1a1;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .card-body {
+            text-align: center;
+            padding: 10px !important;
+    
         }
     </style>
 </head>
 <body style="background-color: #121212;">
     <div class="container">
-        <br>
+        <div class="col-12 card">
+                <div class="card-body">
+                    <b>IMPORTANTE</b>: O validador apenas verifica a <b><i>sintaxe</i></b> do JSON, demais verificações serão feitas após o <b><i>reenvio da mensagem</i></b>.
+                </div>
+            </div>
          <label for="dadosMensagem" class="form-label"><h2 style="color: #a1a1a1;">Dados da mensagem:</h2></label>
         <div class="row" id="dadosMensagem">
             <table style="color: #a1a1a1; text-align: justify; margin-left: 15px;" class="col-5">
@@ -59,11 +78,23 @@
 
         </div>
         <div class="row">
-            <button onclick="validarJSON()" class="btn btn-secondary col-2">validar JSON</button>
+            <div class="col-2">
+                <button onclick="validarJSON()" class="btn btn-secondary">validar JSON</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                    <label for="descricao" class="form-label"><h2 style="color: #a1a1a1;">Descreva as modificações:</h2></label>
+                <div id="descricao" style="height: 500px; border: 1px solid black;"></div>
+            </div>
         </div>
         <div class="row">
-            <div class="col-12" id="textLocal"></div>
+            <div class="col-4">
+                <button onclick="reenviarMensagem()" class="btn btn-secondary">Reenviar mensagem</button>
+            </div>
         </div>
+        <br><br><br>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
     
@@ -74,6 +105,7 @@
         var mensagem
         var editor
         var estrutura
+        var descricao
 
          function capturarIdUrl() {
             var URL = window.location.pathname
@@ -109,6 +141,7 @@
             value: mensagem.mensagemOriginal,
             language: 'json',
             theme: 'vs-dark',
+            minimap: { enabled: false },
             scrollBeyondLastLine: false
             })
         })
@@ -119,6 +152,16 @@
             language: 'json',
             theme: 'vs-dark',
             readOnly: true,
+            minimap: { enabled: false },
+            scrollBeyondLastLine: false
+            })
+        })
+
+        require(["vs/editor/editor.main"], () => {
+            descricao = monaco.editor.create(document.getElementById('descricao'), {
+            value: '',
+            language: 'plaintext',
+            theme: 'vs-dark',
             minimap: { enabled: false },
             scrollBeyondLastLine: false
             })
