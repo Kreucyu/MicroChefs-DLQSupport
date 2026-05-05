@@ -35,6 +35,7 @@ public class MensagemController {
             supportService.atualizarMensagem(fixedMensagemDto);
             return ResponseEntity.ok("Recebido com sucesso!");
         } catch (MensagemNotFoundException e) {
+            System.out.println("F");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage() + ", log: " + e);
         }
     }

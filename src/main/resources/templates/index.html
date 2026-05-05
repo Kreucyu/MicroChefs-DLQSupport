@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Editor JSON</title>
-    <link rel="icon" href="notepad_15342.ico" type="image/x-icon">
+
+    <link rel="icon" href="https://images.icon-icons.com/79/PNG/256/notepad_15342.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+
     <style>
         .btn-secondary{
              background-color: #1e1e1e !important;
@@ -41,6 +44,7 @@
         #dialog {
             background-color: #121212;
         }
+
     </style>
 </head>
 <body style="background-color: #121212;">
@@ -99,7 +103,7 @@
         </div>
         <div class="row">
             <div class="col-4">
-                <button onclick="reenviarMensagem()" class="btn btn-secondary">Reenviar mensagem</button>
+                <button onclick="reenviarMensagem()" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editorModal">Reenviar mensagem</button>
             </div>
         </div>
         <br><br><br>
@@ -119,14 +123,9 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
-    
 
-
-
-    
-    
     <script>
+        
         window.onload = capturarIdUrl;
         var id
         var mensagem
@@ -212,13 +211,41 @@
                 document.getElementById('modalLabel').innerHTML = "JSON inváldio"
                 document.getElementById('modalBody').innerHTML = "Por favor, verifique os dados especificados e tente novamente."
         }
-
-        function reenviarMensagem() {
-
-        }
     }
 
-    </script>
+    async function reenviarMensagem() {
+            try {
+                JSON.parse(editor.getValue())
+                if(descricao.getValue() === null || descricao.getValue() === "") {
+                document.getElementById('modalLabel').innerHTML = "Dados inválidos"
+                document.getElementById('modalBody').innerHTML = "Descreva quais modificações foram feitas antes de enviar."
+                return
+                }
+                try {
+                    const mensagemFinal = { id: id, mensagemCorrigida: editor.getValue(), correcaoDocumentada: descricao.getValue()}
+                    const request = await fetch("http://localhost:9091/mensagem/reenviar", {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(mensagemFinal)
+                    })
+                    if(!request.ok) {
+                        throw new Error(request.status)
+                    }
+                    const resposta = await fetch(request)
+                    console.log(resposta.status)
+                    document.getElementById('modalLabel').innerHTML = "Reenviado com sucesso!"
+                    document.getElementById('modalBody').innerHTML = "A mensagem foi reenviada com sucesso."
+                } catch(error) {
+                console.error('Erro ao reenviar mensagem:', error)
+                }
+            } catch(error) {
+                document.getElementById('modalLabel').innerHTML = "JSON inváldio"
+                document.getElementById('modalBody').innerHTML = "Por favor, verifique os dados especificados e tente novamente."
+            }
+        }
 
+    </script>
 </body>
 

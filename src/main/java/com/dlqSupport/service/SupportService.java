@@ -47,8 +47,10 @@ public class SupportService {
 
     public void atualizarMensagem(FixedMessageDTO fixedMensagemDto) {
         Mensagem mensagemAtualizada = supportRepository.findById(fixedMensagemDto.id()).orElseThrow(() -> new MensagemNotFoundException("Não foi possível encontrar a mensagem"));
+        System.out.println(fixedMensagemDto);
         mensagemAtualizada.setCorrecaoDocumentada(fixedMensagemDto.correcaoDocumentada());
         mensagemAtualizada.setMensagemCorrigida(fixedMensagemDto.mensagemCorrigida());
+        supportRepository.save(mensagemAtualizada);
     }
 
 
