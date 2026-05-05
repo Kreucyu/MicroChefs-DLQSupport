@@ -52,7 +52,7 @@ public class MensagemController {
 
     @GetMapping("/editor/{id}")
     public ModelAndView editorJson() {
-        return new ModelAndView("index");
+        return new ModelAndView("editor");
     }
 
     @GetMapping("/obter")

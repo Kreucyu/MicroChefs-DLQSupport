@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -10,12 +10,10 @@
     <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
-
     <style>
         .btn-secondary{
              background-color: #1e1e1e;
              border: 1px solid black;
-             margin-top: 15px;
              color: #a1a1a1;
             
         }
@@ -55,9 +53,11 @@
         }
         #editorJSON, #estruturaMensagem, #descricao {
             height: 500px; 
-            border: 1px solid black;
+            border: 1px solid white;
         }
-
+        h2 {
+            font-size: 29px;
+        }
     </style>
 </head>
 <body>
@@ -69,23 +69,23 @@
             </div>
          <label for="dadosMensagem" class="form-label"><h2>Dados da mensagem:</h2></label>
         <div class="row" id="dadosMensagem">
-            <div class="col-5">
-            <table>
+            <div >
+            <table class="col-12 col-sm-7 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
                 <tr> 
                     <th><b>Fila de Origem:</b></th>
-                    <th id="filaOrigem"></th>
+                    <th id="filaOrigem">pedido-queue</th>
                 </tr>
                 <tr>
                     <th><b>Tipo da Mensagem:</b></th>
-                    <th id="tipoMensagem"></th>
+                    <th id="tipoMensagem">PEDIDO_STATUS_UPDATE</th>
                 </tr>
                 <tr>
                     <th><b>Mensagem de Erro:</b></th>
-                    <th id="mensagemErro"></th>
+                    <th id="mensagemErro">Dados incompletos</th>
                 </tr>
                 <tr>
                     <th><b>Data do Erro:</b></th>
-                    <th id="timestamp"></th>
+                    <th id="timestamp">2001-09-18T12:09:30</th>
                 </tr>
             </table>
             </div>
@@ -93,31 +93,31 @@
         <br>
         <div class="row">
 
-        <div class="col-6">
+        <div class="col-12 col-lg-6 pb-4">
             <label for="estruturaMensagem" class="form-label"><h2>Estrutura de mensagem esperada:</h2></label>
             <div id="estruturaMensagem"></div>
         </div>
         
-        <div class="col-6">
+        <div class="col-12 col-lg-6 pb-4 pb-lg-0">
             <label for="editorJSON" class="form-label"><h2>Edite a mensagem:</h2></label>
             <div id="editorJSON"></div>
         </div>
 
         </div>
         <div class="row">
-            <div class="col-2">
+            <div class="col-4">
                 <button onclick="validarJSON()" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editorModal">Validar JSON</button>
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 pb-4">
                     <label for="descricao" class="form-label"><h2>Descreva as modificações:</h2></label>
                 <div id="descricao"></div>
             </div>
         </div>
         <div class="row">
-            <div class="col-4">
+            <div class="col-6 col-lg-4">
                 <button onclick="reenviarMensagem()" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editorModal">Reenviar mensagem</button>
             </div>
         </div>
@@ -138,9 +138,7 @@
             </div>
         </div>
     </div>
-
     <script>
-        
         window.onload = capturarIdUrl;
         var id
         var mensagem
@@ -259,7 +257,6 @@
                 document.getElementById('modalBody').innerHTML = "Por favor, verifique os dados especificados e tente novamente."
             }
         }
-
     </script>
 </body>
 
