@@ -133,7 +133,7 @@
                 <div class="modal-body" id="modalBody">
                 </div>
                 <div class="modal-footer border border-0">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="fecharPagina()">Ok</button>
                 </div>
             </div>
         </div>
@@ -226,6 +226,7 @@
         }
     }
 
+    let envioFinalizado = false
     async function reenviarMensagem() {
             try {
                 JSON.parse(editor.getValue())
@@ -249,12 +250,20 @@
                     console.log(request.status)
                     document.getElementById('modalLabel').innerHTML = "Reenviado com sucesso!"
                     document.getElementById('modalBody').innerHTML = "A mensagem foi reenviada com sucesso."
+                    envioFinalizado = true;
                 } catch(error) {
                 console.error('Erro ao reenviar mensagem:', error)
                 }
             } catch(error) {
                 document.getElementById('modalLabel').innerHTML = "JSON inváldio"
                 document.getElementById('modalBody').innerHTML = "Por favor, verifique os dados especificados e tente novamente."
+            }
+        }
+
+        function fecharPagina() {
+            if(envioFinalizado === true) {
+
+                window.close()
             }
         }
 
