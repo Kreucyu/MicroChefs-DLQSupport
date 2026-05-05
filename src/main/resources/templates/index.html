@@ -44,19 +44,33 @@
         #dialog {
             background-color: #121212;
         }
+        .body {
+            background-color: #121212;
+        }
+        .h2, table {
+            color: #a1a1a1;
+        }
+        .table {
+            text-align: justify; 
+            margin-left: 15px;
+        }
+        #editorJson, #estruturaMensagem, #descricao {
+            height: 500px; 
+            border: 1px solid black;
+        }
 
     </style>
 </head>
-<body style="background-color: #121212;">
+<body>
     <div class="container">
         <div class="col-12 card">
                 <div class="card-body">
                     <b>IMPORTANTE</b>: O validador apenas verifica a <b><i>sintaxe</i></b> do JSON, demais verificações serão feitas após o <b><i>reenvio da mensagem</i></b>.
                 </div>
             </div>
-         <label for="dadosMensagem" class="form-label"><h2 style="color: #a1a1a1;">Dados da mensagem:</h2></label>
+         <label for="dadosMensagem" class="form-label"><h2>Dados da mensagem:</h2></label>
         <div class="row" id="dadosMensagem">
-            <table style="color: #a1a1a1; text-align: justify; margin-left: 15px;" class="col-5">
+            <table class="col-5">
                 <tr> 
                     <th><b>Fila de Origem:</b></th>
                     <th id="filaOrigem"></th>
@@ -79,13 +93,13 @@
         <div class="row">
 
         <div class="col-6">
-            <label for="estruturaMensagem" class="form-label"><h2 style="color: #a1a1a1;">Estrutura de mensagem esperada:</h2></label>
-            <div id="estruturaMensagem" style="height: 500px; border: 1px solid black;"></div>
+            <label for="estruturaMensagem" class="form-label"><h2>Estrutura de mensagem esperada:</h2></label>
+            <div id="estruturaMensagem"></div>
         </div>
         
         <div class="col-6">
-            <label for="editorJSON" class="form-label"><h2 style="color: #a1a1a1;">Edite a mensagem:</h2></label>
-            <div id="editorJSON" style="height: 500px; border: 1px solid black;" class="row"></div>
+            <label for="editorJSON" class="form-label"><h2>Edite a mensagem:</h2></label>
+            <div id="editorJSON" class="row"></div>
         </div>
 
         </div>
@@ -97,8 +111,8 @@
         <br>
         <div class="row">
             <div class="col-12">
-                    <label for="descricao" class="form-label"><h2 style="color: #a1a1a1;">Descreva as modificações:</h2></label>
-                <div id="descricao" style="height: 500px; border: 1px solid black;"></div>
+                    <label for="descricao" class="form-label"><h2>Descreva as modificações:</h2></label>
+                <div id="descricao"></div>
             </div>
         </div>
         <div class="row">
