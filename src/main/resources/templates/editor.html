@@ -257,6 +257,13 @@
                 document.getElementById('modalBody').innerHTML = "Por favor, verifique os dados especificados e tente novamente."
             }
         }
+
+        const observerEditor = new ResizeObserver(() => editor.layout())
+        observerEditor.observe(document.getElementById('editorJSON'))
+        const observerEstrutura = new ResizeObserver(() => estrutura.layout())
+        observerEstrutura.observe(document.getElementById('estruturaMensagem'))
+        const observerDescricao = new ResizeObserver(() => descricao.layout())
+        observerDescricao.observe(document.getElementById('descricao'))
     </script>
 </body>
 
