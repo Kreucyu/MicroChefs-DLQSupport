@@ -14,9 +14,16 @@ public class MensagemProducer {
     private AmqpTemplate amqpTemplate;
 
     public void reenviarJson(RecoveryMessageDTO recoveryMessageDTO) {
+
+        String exchange = "pedido-exchange";
+        String routingKey = "pedido-key.pago";
+
+        if(recoveryMessageDTO.filaDeOrigem().equals("pedido-queue")) {
+            routingKey = "pedido-key.update";
+        }
         amqpTemplate.convertAndSend(
-                "pedido-exchange",
-                "pedido-key.pago",
+                exchange,
+                routingKey,
                 objectMapper.writeValueAsString(recoveryMessageDTO.mensagemCorrigida())
         );
     }
