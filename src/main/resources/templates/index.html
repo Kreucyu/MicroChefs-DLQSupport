@@ -7,6 +7,7 @@
     <link rel="icon" href="notepad_15342.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <style>
         .btn-secondary{
              background-color: #1e1e1e !important;
@@ -32,6 +33,13 @@
             text-align: center;
             padding: 10px !important;
     
+        }
+        #modalLabel, #modalBody {
+            color: #a1a1a1;
+            border: none;
+        }
+        #dialog {
+            background-color: #121212;
         }
     </style>
 </head>
@@ -79,7 +87,7 @@
         </div>
         <div class="row">
             <div class="col-2">
-                <button onclick="validarJSON()" class="btn btn-secondary">validar JSON</button>
+                <button onclick="validarJSON()" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editorModal">Validar JSON</button>
             </div>
         </div>
         <br>
@@ -96,7 +104,26 @@
         </div>
         <br><br><br>
     </div>
+
+    <div class="modal fade" id="editorModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="dialog">
+                <div class="modal-header border border-0">
+                    <h1 class="modal-title fs-5" id="modalLabel"></h1>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+                <div class="modal-footer border border-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+    
+
+
+
     
     
     <script>
@@ -111,7 +138,8 @@
             var URL = window.location.pathname
             var separadorDeUrl = URL.split("editor/")
             if(separadorDeUrl[1] == null) {
-                alert("Não foi possível localizar um id de mensagem")
+                console.error("Não foi possível localizar um id de mensagem")
+                return
             }
             id = separadorDeUrl[1]
             buscarJSON();
@@ -178,9 +206,15 @@
         function validarJSON() {
             try {
                 JSON.parse(editor.getValue())
-                document.getElementById('textLocal').innerHTML = "<h1 style=\"color: white\">JSON válido</h1>"
+                document.getElementById('modalLabel').innerHTML = "JSON válido"
+                document.getElementById('modalBody').innerHTML = "O JSON está estruturado corretamente."
             } catch(error) {
-                document.getElementById('textLocal').innerHTML = "<h1 style=\"color: white\">JSON inválido</h1>"
+                document.getElementById('modalLabel').innerHTML = "JSON inváldio"
+                document.getElementById('modalBody').innerHTML = "Por favor, verifique os dados especificados e tente novamente."
+        }
+
+        function reenviarMensagem() {
+
         }
     }
 
