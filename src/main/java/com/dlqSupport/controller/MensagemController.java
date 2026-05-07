@@ -59,10 +59,4 @@ public class MensagemController {
     public ResponseEntity<List<RecoveryMessageDTO>> exibirTodasMensagens() {
         return ResponseEntity.ok(supportService.exibirMensagens());
     }
-
-    @PostMapping("/fake")
-    public ResponseEntity<String> fakeMessage(@RequestBody DLQSupportDTO dlqSupportDTO) {
-        supportService.processarMensagem(dlqSupportDTO);
-        return ResponseEntity.ok("recebido");
-    }
 }
