@@ -72,20 +72,24 @@
             <div >
             <table class="col-12 col-sm-7 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
                 <tr> 
-                    <th><b>Fila de Origem:</b></th>
-                    <th id="filaOrigem">pedido-queue</th>
+                    <th><b>Fila de origem:</b></th>
+                    <th id="filaOrigem"></th>
                 </tr>
                 <tr>
-                    <th><b>Tipo da Mensagem:</b></th>
-                    <th id="tipoMensagem">PEDIDO_STATUS_UPDATE</th>
+                    <th><b>Tipo da mensagem:</b></th>
+                    <th id="tipoMensagem"></th>
                 </tr>
                 <tr>
-                    <th><b>Mensagem de Erro:</b></th>
-                    <th id="mensagemErro">Dados incompletos</th>
+                    <th><b>Tipo do erro:</b></th>
+                    <th id="tipoErro"></th>
                 </tr>
                 <tr>
-                    <th><b>Data do Erro:</b></th>
-                    <th id="timestamp">2001-09-18T12:09:30</th>
+                    <th><b>Mensagem de erro:</b></th>
+                    <th id="mensagemErro"></th>
+                </tr>
+                <tr>
+                    <th><b>Data do erro:</b></th>
+                    <th id="timestamp"></th>
                 </tr>
             </table>
             </div>
@@ -213,6 +217,7 @@
             document.getElementById('tipoMensagem').innerHTML = mensagem.tipoMensagem
             document.getElementById('mensagemErro').innerHTML = mensagem.mensagemDeErro
             document.getElementById('timestamp').innerHTML = mensagem.timestamp
+            document.getElementById('tipoErro').innerHTML = mensagem.tipoErro
         }
 
         function validarJSON() {
@@ -236,7 +241,7 @@
                 return
                 }
                 try {
-                    const mensagemFinal = { id: id, mensagemCorrigida: editor.getValue(), correcaoDocumentada: descricao.getValue()}
+                    const mensagemFinal = { id: id, mensagemCorrigida: editor.getValue(), correcaoDocumentada: descricao.getValue(), filaDeOrigem: mensagem.filaDeOrigem }
                     const request = await fetch("http://localhost:9091/mensagem/reenviar", {
                         method: "PATCH",
                         headers: {

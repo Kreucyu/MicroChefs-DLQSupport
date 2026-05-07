@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class SupportService {
     @Autowired
-    private MensagemProducer MensagemProducer;
+    private MensagemProducer mensagemProducer;
 
     @Autowired
     private SupportRepository supportRepository;
@@ -51,6 +51,7 @@ public class SupportService {
         mensagemAtualizada.setCorrecaoDocumentada(fixedMensagemDto.correcaoDocumentada());
         mensagemAtualizada.setMensagemCorrigida(fixedMensagemDto.mensagemCorrigida());
         supportRepository.save(mensagemAtualizada);
+        mensagemProducer.reenviarJson(fixedMensagemDto);
     }
 
 
@@ -65,7 +66,8 @@ public class SupportService {
                 mensagemDesejada.getFilaDeOrigem(),
                 mensagemDesejada.getTimestamp(),
                 registroEstruturas.buscarRegistro(
-                        mensagemDesejada.getTipoMensagem()));
+                        mensagemDesejada.getTipoMensagem()),
+                mensagemDesejada.getTipoErro());
     }
 
     public Long getIdByMensagem(String mensagem) {

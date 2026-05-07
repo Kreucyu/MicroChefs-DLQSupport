@@ -20,6 +20,6 @@ public class SupportConsumer {
     @RabbitListener(queues = "dead-letter-queue")
     public void receberMensagem(@Payload String mensagem) {
         DLQSupportDTO dlqSupportDTO = objectMapper.readValue(mensagem, DLQSupportDTO.class);
-        System.out.println(dlqSupportDTO);
+        supportService.processarMensagem(dlqSupportDTO);
     }
 }
