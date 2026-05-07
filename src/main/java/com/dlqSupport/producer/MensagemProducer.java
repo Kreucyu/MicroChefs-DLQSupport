@@ -1,9 +1,6 @@
 package com.dlqSupport.producer;
 
 import com.dlqSupport.dto.FixedMessageDTO;
-import com.dlqSupport.dto.RecoveryMessageDTO;
-import com.dlqSupport.dto.producers.CozinhaPedidoDTO;
-import com.dlqSupport.dto.producers.UpdatePedidoDTO;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,14 +14,11 @@ public class MensagemProducer {
     private AmqpTemplate amqpTemplate;
 
     public void reenviarJson(FixedMessageDTO fixedMessageDTO) {
-        System.out.println(fixedMessageDTO.mensagemCorrigida());
-        //Object pedido = new CozinhaPedidoDTO();
         String exchange = "pedido-exchange";
         String routingKey = "pedido-key.pago";
 
         if(fixedMessageDTO.filaDeOrigem().equals("pedido-queue")) {
             routingKey = "pedido-key.update";
-           // pedido = new UpdatePedidoDTO()
         }
 
         amqpTemplate.convertAndSend(
