@@ -9,8 +9,6 @@ import tools.jackson.databind.ObjectMapper;
 @Component
 public class MensagemProducer {
     @Autowired
-    private ObjectMapper objectMapper;
-    @Autowired
     private AmqpTemplate amqpTemplate;
 
     public void reenviarJson(FixedMessageDTO fixedMessageDTO) {

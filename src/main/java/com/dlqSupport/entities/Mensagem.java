@@ -27,19 +27,19 @@ public class Mensagem {
     @Column(nullable = false)
     private String tipoErro;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String mensagemDeErro;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String mensagemOriginal;
 
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String mensagemCorrigida;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String correcaoDocumentada;
 
 
