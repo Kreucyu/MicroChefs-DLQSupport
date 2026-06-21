@@ -42,7 +42,7 @@ public class SupportService {
     }
 
     public void iniciarEditor(Long id) {
-        System.out.println("\nACESSO AO EDITOR JSON: http://localhost:9003/mensagem/editor/" + id);
+        System.out.println("\nACESSO AO EDITOR JSON: http://localhost:9091/mensagem/editor/" + id);
     }
 
     public void atualizarMensagem(FixedMessageDTO fixedMensagemDto) {

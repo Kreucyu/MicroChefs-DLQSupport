@@ -14,7 +14,10 @@ public class RegistroEstruturas {
                                 "dataDoPedido", new CamposExigidos("LocalDate", true, null, null),
                                 "itens", new CamposExigidos("List<ItemPedido>", true, null, Map.of(
                                                 "idProduto", new CamposExigidos("long", true, null, null),
-                                                "quantidadeProduto", new CamposExigidos("int", true, null, null))))));
+                                                "quantidadeProduto", new CamposExigidos("int", true, null, null))))),
+                        "PRODUTO_UPDATE", new EstruturaMensagem
+                        (Map.of("id", new CamposExigidos("long", true, null, null),
+                                "quantidade", new CamposExigidos("int", true, null, null))));
     }
 
     public EstruturaMensagem buscarRegistro(String registroKey) {

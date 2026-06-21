@@ -162,7 +162,7 @@
         }
 
         async function buscarJSON() {
-            const URL = "http://localhost:9003/mensagem/obter/" + id
+            const URL = "http://localhost:9091/mensagem/obter/" + id
             try {
                 const response = await fetch(URL)
                 if(!response.ok) {
@@ -242,7 +242,7 @@
                 }
                 try {
                     const mensagemFinal = { id: id, mensagemCorrigida: editor.getValue(), correcaoDocumentada: descricao.getValue(), filaDeOrigem: mensagem.filaDeOrigem }
-                    const request = await fetch("http://localhost:9003/mensagem/reenviar", {
+                    const request = await fetch("http://localhost:9091/mensagem/reenviar", {
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json"
