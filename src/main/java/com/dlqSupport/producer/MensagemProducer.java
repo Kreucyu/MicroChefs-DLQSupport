@@ -23,6 +23,10 @@ public class MensagemProducer {
             routingKey = "pedido-key.updates";
         }
 
+        if(fixedMessageDTO.filaDeOrigem().equals("produto-queue")) {
+            routingKey = "pedido-key.quantity";
+        }
+
         amqpTemplate.convertAndSend(
                 exchange,
                 routingKey,

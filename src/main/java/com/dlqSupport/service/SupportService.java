@@ -26,11 +26,11 @@ public class SupportService {
     }
 
     public void processarMensagem(DLQSupportDTO dlqSupportDTO) {
-        salvarMensagem(dlqSupportDTO);
-        iniciarEditor(getIdByMensagem(dlqSupportDTO.mensagemOriginal()));
+        Mensagem salva = salvarMensagem(dlqSupportDTO);
+        iniciarEditor(salva.getId());
     }
 
-    private void salvarMensagem(DLQSupportDTO dlqSupportDTO) {
+    private Mensagem salvarMensagem(DLQSupportDTO dlqSupportDTO) {
         Mensagem novaMensagem = new Mensagem();
         novaMensagem.setTipoMensagem(dlqSupportDTO.tipoMensagem());
         novaMensagem.setMensagemOriginal(dlqSupportDTO.mensagemOriginal());
@@ -38,7 +38,7 @@ public class SupportService {
         novaMensagem.setTipoErro(dlqSupportDTO.tipoErro());
         novaMensagem.setTimestamp(dlqSupportDTO.timestamp());
         novaMensagem.setFilaDeOrigem(dlqSupportDTO.filaDeOrigem());
-        supportRepository.save(novaMensagem);
+        return supportRepository.save(novaMensagem);
     }
 
     public void iniciarEditor(Long id) {
